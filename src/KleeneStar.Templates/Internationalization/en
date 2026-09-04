@@ -1,0 +1,76 @@
+﻿# en-US language resource file
+plugin.name=KleeneStar.Templates
+plugin.description=Workspace templates for the KleeneStar platform.
+
+# ------------------------------------------------------------------ service desk
+template.servicedesk.name=Service Desk
+template.servicedesk.description=Take what users report, work out what it is, and do something about it. Three of its classes are open to the customer portal.
+template.servicedesk.class.ticket=Requests as they arrive, before anyone has decided what they are.
+template.servicedesk.class.incident=Something is broken and someone is waiting.
+template.servicedesk.class.servicerequest=A standard service somebody asked for.
+template.servicedesk.class.problem=The cause behind a run of incidents.
+template.servicedesk.class.change=A planned alteration to a service, with its approval.
+template.servicedesk.class.knowledge=The written answer, so the next person does not have to ask.
+template.servicedesk.class.announcement=Planned maintenance, outages and news for the people served.
+
+# -------------------------------------------------------------------- development
+template.development.name=Software Development
+template.development.description=Where the code lives, what is built from it, and what is still to be done to it. Spans work items, documents and release posts.
+template.development.class.task=A piece of work somebody has taken on.
+template.development.class.bug=Behaviour that does not match what was intended.
+template.development.class.sprint=The work committed to for one iteration.
+template.development.class.repository=A source code repository and who owns it.
+template.development.class.buildpipeline=An automated build and what it produces.
+template.development.class.documentation=Specifications, guides and decisions worth keeping.
+template.development.class.release=What shipped, and what changed with it.
+
+# --------------------------------------------------------------------------- cmdb
+template.cmdb.name=Configuration Database
+template.cmdb.description=What the installation is made of, how the parts depend on each other, and what has to be true about them. Its central class holds assets rather than issues.
+template.cmdb.class.asset=A thing the organization runs, owns or depends on.
+template.cmdb.class.relationship=How one asset depends on another.
+template.cmdb.class.changerequest=A proposed alteration to an asset, and its approval.
+template.cmdb.class.vulnerability=A known weakness and what is exposed by it.
+template.cmdb.class.compliance=A rule that has to hold, and the evidence that it does.
+template.cmdb.class.policy=The governance a configuration is held to.
+template.cmdb.class.approval=Who agreed to a change, and when.
+
+# ------------------------------------------------------------------------ finance
+template.finance.name=Finance and Controlling
+template.finance.description=What was planned, what was spent, and who agreed to it.
+template.finance.class.budget=Money set aside, and what for.
+template.finance.class.invoice=A bill received or issued.
+template.finance.class.costcenter=Where a cost is booked.
+template.finance.class.contract=An agreement with a financial obligation.
+template.finance.class.forecast=What the numbers are expected to do.
+template.finance.class.approval=Who signed off on a spend.
+
+# ---------------------------------------------------------------- human resources
+template.humanresources.name=Human Resources
+template.humanresources.description=Who the people of the organization are, where they belong, and what is arranged for them.
+template.humanresources.class.employee=A person and their record.
+template.humanresources.class.organizationunit=A department, team or division.
+template.humanresources.class.position=A role, and whether it is filled.
+template.humanresources.class.onboarding=Everything that has to happen before a first day works.
+template.humanresources.class.absence=Leave, sickness and time away.
+template.humanresources.class.training=Courses taken and certifications held.
+
+# ------------------------------------------------------------- product management
+template.productmanagement.name=Product Management
+template.productmanagement.description=What was asked for, what it is worth, and when it is meant to arrive.
+template.productmanagement.class.feature=Something the product will be able to do.
+template.productmanagement.class.requirement=What a feature has to satisfy to count as done.
+template.productmanagement.class.roadmap=The order things are meant to happen in.
+template.productmanagement.class.releaseplan=What a release is to contain, and when.
+template.productmanagement.class.usecase=A scenario the product has to support.
+template.productmanagement.class.stakeholder=Someone whose opinion of the product matters.
+
+# -------------------------------------------------------------------- procurement
+template.procurement.name=Procurement
+template.procurement.description=What was ordered, from whom, and whether it arrived.
+template.procurement.class.purchaseorder=An order placed with a supplier.
+template.procurement.class.supplier=A vendor and the terms agreed with them.
+template.procurement.class.contract=A purchasing agreement and its duration.
+template.procurement.class.tender=A call for offers and the bids against it.
+template.procurement.class.delivery=What arrived, when, and in what state.
+template.procurement.class.invoice=A bill against an order.
