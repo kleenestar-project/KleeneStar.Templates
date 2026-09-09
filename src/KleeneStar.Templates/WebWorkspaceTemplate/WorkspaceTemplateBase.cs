@@ -1,4 +1,4 @@
-using KleeneStar.Core.WebWorkspaceTemplate;
+﻿using KleeneStar.Core.WebWorkspaceTemplate;
 using KleeneStar.Model.Entities;
 using System.Collections.Generic;
 using WebExpress.WebCore.WebIcon;
@@ -75,6 +75,9 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         /// <param name="name">The class name.</param>
         /// <param name="icon">The file name of the icon, without path or extension.</param>
         /// <param name="kind">The kind of object the class holds.</param>
+        /// <param name="renderer">The renderer its objects are read and written through, or null
+        /// to follow the default of the kind - which is what a template that does not care
+        /// leaves it at.</param>
         /// <param name="portalVisible">Whether objects of the class are offered in the customer
         /// portal.</param>
         /// <param name="sealed">Whether the class may not be specialized further.</param>
@@ -84,6 +87,7 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
             string name,
             string icon,
             string kind = ObjectKind.Issue,
+            string renderer = null,
             bool portalVisible = false,
             bool @sealed = false
         )
@@ -94,6 +98,7 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
                 Description = "kleenestar.templates:template." + Slug + ".class." + name.ToLowerInvariant(),
                 Icon = "/kleenestar/assets/icons/" + icon + ".svg",
                 Kind = kind,
+                Renderer = renderer,
                 PortalVisible = portalVisible,
                 Sealed = @sealed
             };

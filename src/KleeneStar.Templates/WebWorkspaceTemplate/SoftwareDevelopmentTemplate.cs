@@ -1,4 +1,4 @@
-using KleeneStar.Core.WebWorkspaceTemplate;
+﻿using KleeneStar.Core.WebWorkspaceTemplate;
 using KleeneStar.Model.Entities;
 using System.Collections.Generic;
 
@@ -39,6 +39,9 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
             Class("Repository", "repo"),
             Class("BuildPipeline", "build"),
             Class("Documentation", "doc", ObjectKind.Document),
+            // the same kind as Documentation - it stands in the same page tree - but filled in
+            // through the input mask of its forms instead of written as prose
+            Class("Specification", "requirement", ObjectKind.Document, ObjectRenderer.Form),
             Class("Release", "release", ObjectKind.Blog)
         ];
     }

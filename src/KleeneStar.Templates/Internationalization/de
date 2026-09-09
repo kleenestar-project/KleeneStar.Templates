@@ -23,6 +23,7 @@ template.development.class.repository=Ein Quellcode-Repository und wer es verant
 template.development.class.buildpipeline=Ein automatisierter Build und was er erzeugt.
 template.development.class.documentation=Spezifikationen, Anleitungen und Entscheidungen, die bleiben sollen.
 template.development.class.release=Was ausgeliefert wurde und was sich damit geändert hat.
+template.development.class.specification=Strukturierte Spezifikationsbögen, Feld für Feld erfasst.
 
 # --------------------------------------------------------------------------- cmdb
 template.cmdb.name=Configuration Database
