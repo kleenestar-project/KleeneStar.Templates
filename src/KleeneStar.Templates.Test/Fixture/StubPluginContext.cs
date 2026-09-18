@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using WebExpress.WebCore.WebComponent;
 using WebExpress.WebCore.WebEndpoint;
@@ -42,5 +43,8 @@ namespace KleeneStar.Templates.Test
 
         /// <inheritdoc/>
         public Assembly Assembly => TemplateCatalog.Assembly;
+
+        /// <inheritdoc/>
+        public IConfiguration Settings => null;
     }
 }
