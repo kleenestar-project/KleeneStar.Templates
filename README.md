@@ -22,7 +22,7 @@ anything else.
 | Template               | Key    | Starts with
 |------------------------|--------|--------------------------------------------------------
 | Service Desk           | `SD`   | Ticket, Incident, ServiceRequest, Problem, Change, Knowledge, Announcement
-| Software Development   | `DEV`  | Task, Bug, Sprint, Repository, BuildPipeline, Documentation, Release
+| Software Development   | `DEV`  | Task, Bug, Sprint, Repository, BuildPipeline, Documentation, Specification, Release
 | Configuration Database | `CMDB` | Asset, Relationship, ChangeRequest, Vulnerability, Compliance, Policy, Approval
 | Finance and Controlling| `FIN`  | Budget, Invoice, CostCenter, Contract, Forecast, Approval
 | Human Resources        | `HR`   | Employee, OrganizationUnit, Position, Onboarding, Absence, Training

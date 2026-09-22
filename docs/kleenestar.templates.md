@@ -51,7 +51,7 @@ The seven templates mirror the workspaces the installation seeds, which is not a
 |Template                |Key    |Order|Categories                 |Classes
 |------------------------|-------|-----|---------------------------|--------------------------------------------------------
 |Service Desk            |`SD`   |10   |Support                    |Ticket, Incident, ServiceRequest, Problem, Change, Knowledge, Announcement
-|Software Development    |`DEV`  |20   |Engineering                |Task, Bug, Sprint, Repository, BuildPipeline, Documentation, Release
+|Software Development    |`DEV`  |20   |Engineering                |Task, Bug, Sprint, Repository, BuildPipeline, Documentation, Specification, Release
 |Configuration Database  |`CMDB` |30   |Infrastructure, Compliance |Asset, Relationship, ChangeRequest, Vulnerability, Compliance, Policy, Approval
 |Finance and Controlling |`FIN`  |40   |Finance                    |Budget, Invoice, CostCenter, Contract, Forecast, Approval
 |Human Resources         |`HR`   |50   |HumanResources             |Employee, OrganizationUnit, Position, Onboarding, Absence, Training
@@ -60,13 +60,15 @@ The seven templates mirror the workspaces the installation seeds, which is not a
 
 The key in the table is the *suggested* workspace key, a proposal the wizard fills the key field with rather than a constraint — a second workspace from the same template needs a different one anyway. The order is what decides the sequence of the cards; equal orders would fall back to the template key, so they are kept distinct on purpose.
 
-Three properties are set by exactly one template each, and each of the three is a decision rather than a detail.
+Four properties are set by only a few templates, and each of the four is a decision rather than a detail.
 
 **Portal visibility — the service desk, three classes.** `Ticket`, `Incident` and `ServiceRequest` are marked `PortalVisible`, and nothing else in the catalogue is. A service desk is the one workspace whose work is *started by the people outside it*: those three are the request types customers file, and the rest of the workspace — the problem behind a run of incidents, the change that fixes it — is what the team does with them. Portal visibility is what decides whether people outside the organization can file and read objects of a class, so a template that set it by accident would publish internal work to customers the moment the workspace was created.
 
 **Sealing — the configuration database, one class.** `Policy` is sealed, which means it may not be specialized further. That is the right answer for the governance a configuration is held to, and the wrong answer for everything a workspace is expected to grow.
 
-**Object kinds beyond the issue — the service desk, development, and the CMDB.** Most classes in the catalogue hold issues, because most work is work items. Three templates deliberately do not stop there: `Knowledge` and `Documentation` hold documents, `Announcement` and `Release` hold posts, and `Asset` holds assets. The kind decides which overview view presents the class — documents form a page tree, posts a timeline, issues a filterable work-item list — so a template spanning three kinds is the useful example of a workspace that is more than a ticket list.
+**Object kinds beyond the issue — the service desk, development, and the CMDB.** Most classes in the catalogue hold issues, because most work is work items. Three templates deliberately do not stop there: `Knowledge`, `Documentation` and `Specification` hold documents, `Announcement` and `Release` hold posts, and `Asset` holds assets. The kind decides which overview view presents the class — documents form a page tree, posts a timeline, issues a filterable work-item list — so a template spanning three kinds is the useful example of a workspace that is more than a ticket list.
+
+**An explicit renderer — development, one class.** `Specification` is a document like `Documentation` and stands in the same page tree, but names the **form** renderer: it opens as the structured input mask of its class's forms instead of as prose. Every other class in the catalogue leaves the renderer unset and follows its kind (prose for documents and posts, form for issues and assets). It is the one place a fresh workspace shows both surfaces of the document kind side by side — see [Object Renderers](https://github.com/kleenestar-project/KleeneStar.Core/blob/HEAD/docs/kleenestar.renderer.md).
 
 |Class                                  |Template|Kind      |Note
 |---------------------------------------|--------|----------|-------------------------------------------
@@ -74,6 +76,7 @@ Three properties are set by exactly one template each, and each of the three is 
 |`Knowledge`                            |SD      |document  |the written answer, so the next person need not ask
 |`Announcement`                         |SD      |blog      |maintenance, outages and news for the people served
 |`Documentation`                        |DEV     |document  |specifications, guides and decisions worth keeping
+|`Specification`                        |DEV     |document  |form renderer — structured sheets, captured field by field
 |`Release`                              |DEV     |blog      |what shipped, and what changed with it
 |`Asset`                                |CMDB    |asset     |the central class — a thing the organization runs
 |`Policy`                               |CMDB    |issue     |sealed — the governance a configuration is held to
