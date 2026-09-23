@@ -1,3 +1,5 @@
+using KleeneStar.Templates.WebWorkspaceTemplate;
+
 namespace KleeneStar.Templates.Test.Internationalization
 {
     /// <summary>
@@ -29,7 +31,46 @@ namespace KleeneStar.Templates.Test.Internationalization
                 keys.AddRange(template.Classes.Select(x => x.Description));
             }
 
+            // the defaults of every kind are shipped too - a template gets them for whatever it
+            // leaves open, whether or not a shipped one does
+            foreach (var (kind, renderer) in new[] { ("issue", (string)null), ("asset", null), ("document", "form"), ("document", null), ("blog", null) })
+            {
+                TemplateStructure.Resolve(new Core.WebWorkspaceTemplate.WorkspaceTemplateClass { Name = "Probe", Kind = kind, Renderer = renderer }, null, null, null, null, null);
+            }
+
+            // the structure of the classes is shipped as keys derived from its English text;
+            // declaring the classes above is what derived them
+            keys.AddRange(TemplateText.Texts.Keys);
+
             return [.. keys.Select(TemplateResources.Unqualify).Distinct(StringComparer.Ordinal)];
+        }
+
+        /// <summary>
+        /// The English file says what the code says: every derived key is translated into
+        /// English as exactly the text it was derived from.
+        /// </summary>
+        /// <remarks>
+        /// The structure texts are written in English in the code and shipped as keys, so the
+        /// English entry is a copy - and a copy that drifted would show a text nobody wrote. Two
+        /// different texts folding into one key would share one translation, which is why a key
+        /// has to come from exactly one text.
+        /// </remarks>
+        [Fact]
+        public void TheEnglishFileRepeatsTheCode()
+        {
+            _ = UsedKeys();
+
+            var english = TemplateResources.Read("en");
+
+            foreach (var (key, texts) in TemplateText.Texts)
+            {
+                var text = Assert.Single(texts);
+
+                // the message is the line to add, so a changed text is fixed by copying it into
+                // the English file and its translation into the German one
+                Assert.True(english.TryGetValue(key, out var translated), $"'{key}' is not in the English file - add: {key}={text}");
+                Assert.True(text == translated, $"'{key}' reads '{translated}' in the English file, but '{text}' in the code.");
+            }
         }
 
         /// <summary>

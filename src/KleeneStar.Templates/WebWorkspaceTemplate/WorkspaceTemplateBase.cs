@@ -70,8 +70,15 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public abstract IEnumerable<WorkspaceTemplateClass> Classes { get; }
 
         /// <summary>
-        /// Declares one class of the template.
+        /// Declares one class of the template, with its structure.
         /// </summary>
+        /// <remarks>
+        /// Every structural part left <see langword="null"/> is taken from the defaults of the
+        /// class's kind (<see cref="TemplateStructure.Resolve"/>); an empty collection says the
+        /// class has none of it. <paramref name="fields"/> is merged into the base fields of the
+        /// kind rather than replacing them, so a template names only what is particular to the
+        /// class.
+        /// </remarks>
         /// <param name="name">The class name.</param>
         /// <param name="icon">The file name of the icon, without path or extension.</param>
         /// <param name="kind">The kind of object the class holds.</param>
@@ -81,6 +88,11 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         /// <param name="portalVisible">Whether objects of the class are offered in the customer
         /// portal.</param>
         /// <param name="sealed">Whether the class may not be specialized further.</param>
+        /// <param name="fields">The fields particular to the class.</param>
+        /// <param name="priorities">The priority scale, or null for the kind's.</param>
+        /// <param name="workflow">The lifecycle, or null for the kind's.</param>
+        /// <param name="calendars">The calendars, or null for the kind's.</param>
+        /// <param name="slas">The service-level agreements, or null for the kind's.</param>
         /// <returns>The declared class.</returns>
         protected WorkspaceTemplateClass Class
         (
@@ -89,19 +101,32 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
             string kind = ObjectKind.Issue,
             string renderer = null,
             bool portalVisible = false,
-            bool @sealed = false
+            bool @sealed = false,
+            IReadOnlyList<WorkspaceTemplateField> fields = null,
+            IReadOnlyList<WorkspaceTemplatePriority> priorities = null,
+            WorkspaceTemplateWorkflow workflow = null,
+            IReadOnlyList<WorkspaceTemplateCalendar> calendars = null,
+            IReadOnlyList<WorkspaceTemplateSla> slas = null
         )
         {
-            return new WorkspaceTemplateClass
-            {
-                Name = name,
-                Description = "kleenestar.templates:template." + Slug + ".class." + name.ToLowerInvariant(),
-                Icon = "/kleenestar/assets/icons/" + icon + ".svg",
-                Kind = kind,
-                Renderer = renderer,
-                PortalVisible = portalVisible,
-                Sealed = @sealed
-            };
+            return TemplateStructure.Resolve
+            (
+                new WorkspaceTemplateClass
+                {
+                    Name = name,
+                    Description = "kleenestar.templates:template." + Slug + ".class." + name.ToLowerInvariant(),
+                    Icon = "/kleenestar/assets/icons/" + icon + ".svg",
+                    Kind = kind,
+                    Renderer = renderer,
+                    PortalVisible = portalVisible,
+                    Sealed = @sealed
+                },
+                fields,
+                priorities,
+                workflow,
+                calendars,
+                slas
+            );
         }
     }
 }

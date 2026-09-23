@@ -17,34 +17,55 @@ namespace KleeneStar.Templates.Test
     /// </remarks>
     internal sealed class StubPluginContext : IPluginContext
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the id of the plugin; none, the tests address the stub by its name.
+        /// </summary>
         public IComponentId PluginId => null;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the name of the plugin, the id of the templates plugin it stands in for.
+        /// </summary>
         public string PluginName => TemplateResources.PluginId;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the description of the plugin; none, discovery does not read it.
+        /// </summary>
         public string Description => null;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the manufacturer of the plugin; none, discovery does not read it.
+        /// </summary>
         public string Manufacturer => null;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the copyright of the plugin; none, discovery does not read it.
+        /// </summary>
         public string Copyright => null;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the version of the plugin; none, discovery does not read it.
+        /// </summary>
         public string Version => null;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the license of the plugin; none, discovery does not read it.
+        /// </summary>
         public string License => null;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the icon of the plugin; none, discovery does not read it.
+        /// </summary>
         public IRoute Icon => null;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the assembly discovery scans - the real templates plugin, so the tests find the
+        /// shipped templates rather than a stand-in for them.
+        /// </summary>
         public Assembly Assembly => TemplateCatalog.Assembly;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the settings section of the plugin; none, templates read no settings.
+        /// </summary>
         public IConfiguration Settings => null;
     }
 }
