@@ -46,5 +46,12 @@ namespace KleeneStar.Templates
         public void Run()
         {
         }
+
+        /// <summary>
+        /// Called when the host shuts down. The plugin holds no resources of its own.
+        /// </summary>
+        public void Dispose()
+        {
+        }
     }
 }
