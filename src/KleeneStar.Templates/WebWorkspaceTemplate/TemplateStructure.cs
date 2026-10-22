@@ -450,8 +450,8 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         }
 
         /// <summary>
-        /// Returns whether a class of the kind and renderer is written as prose, and therefore
-        /// has no structure.
+        /// Returns whether a class of the kind and renderer is written as prose - or as another
+        /// body of its own, a workbook - and therefore has no structure.
         /// </summary>
         /// <param name="kind">The object kind.</param>
         /// <param name="renderer">The renderer the template names, or null to follow the kind.</param>
@@ -459,7 +459,8 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         {
             if (!string.IsNullOrWhiteSpace(renderer))
             {
-                return string.Equals(renderer, ObjectRenderer.Prose, StringComparison.OrdinalIgnoreCase);
+                return string.Equals(renderer, ObjectRenderer.Prose, StringComparison.OrdinalIgnoreCase)
+                    || string.Equals(renderer, ObjectRenderer.Spreadsheet, StringComparison.OrdinalIgnoreCase);
             }
 
             return string.Equals(kind, ObjectKind.Document, StringComparison.OrdinalIgnoreCase)
