@@ -504,7 +504,8 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
             IReadOnlyList<WorkspaceTemplatePriority> priorities,
             WorkspaceTemplateWorkflow workflow,
             IReadOnlyList<WorkspaceTemplateCalendar> calendars,
-            IReadOnlyList<WorkspaceTemplateSla> slas
+            IReadOnlyList<WorkspaceTemplateSla> slas,
+            IReadOnlyList<WorkspaceTemplateApproval> approvals = null
         )
         {
             var prose = IsProse(declared.Kind, declared.Renderer);
@@ -577,7 +578,8 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
                 Priorities = effectivePriorities,
                 Workflow = effectiveWorkflow,
                 Calendars = effectiveCalendars,
-                Slas = effectiveSlas
+                Slas = effectiveSlas,
+                Approvals = approvals ?? []
             });
         }
 
@@ -698,6 +700,19 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
                         Targets = [.. x.Targets.Select(t => t with { Name = K(t.Name) })],
                         Scope = [.. x.Scope.Select(r => r with { Value = IsCode(r.Value) ? r.Value : K(r.Value) })],
                         Escalations = [.. x.Escalations.Select(e => e with { Notify = K(e.Notify) })]
+                    })
+                ],
+                Approvals =
+                [
+                    .. source.Approvals.Select(x => new WorkspaceTemplateApproval
+                    {
+                        Name = K(x.Name),
+                        Description = K(x.Description),
+                        Steps = x.Steps,
+                        RequestState = K(x.RequestState),
+                        ApprovedState = K(x.ApprovedState),
+                        RejectedState = K(x.RejectedState),
+                        AllowSelfApproval = x.AllowSelfApproval
                     })
                 ]
             };

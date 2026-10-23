@@ -104,7 +104,17 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
                 priorities: InvoicePriorities(),
                 workflow: InvoiceWorkflow(),
                 calendars: [BusinessHours],
-                slas: InvoiceSlas()),
+                slas: InvoiceSlas(),
+                approvals:
+                [
+                    Approval
+                    (
+                        "Payment approval",
+                        "A second person approves every invoice before it is paid.",
+                        [Step("Payment approval", "any {creator} within 72h")],
+                        "Approval", "Approved for Payment", "Rejected"
+                    )
+                ]),
 
             Class("CostCenter", "costcenter",
                 fields:

@@ -52,6 +52,29 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override IEnumerable<string> Categories => ["Engineering"];
 
         /// <summary>
+        /// Gets the routine of the development workspace: what the build server reports about an
+        /// object - through an incoming webhook of the GitLab, Jenkins or Automic integration -
+        /// is noted on it.
+        /// </summary>
+        public override IEnumerable<WorkspaceTemplateAutomation> Automations =>
+        [
+            Automation
+            (
+                "Note failed pipelines",
+                "Notes on an object that a pipeline building it failed.",
+                null, "integration.received", "pipeline.failed",
+                "comment internal: " + Say("A pipeline building this object failed.")
+            ),
+            Automation
+            (
+                "Note deployments",
+                "Notes on an object that it was deployed.",
+                null, "integration.received", "deployed",
+                "comment internal: " + Say("This object was deployed.")
+            )
+        ];
+
+        /// <summary>
         /// The parts of the product work is sorted into.
         /// </summary>
         private static readonly string[] Components = ["Frontend", "Backend", "API", "Database", "Infrastructure", "Documentation"];

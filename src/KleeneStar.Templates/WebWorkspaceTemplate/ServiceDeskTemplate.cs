@@ -31,6 +31,68 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
     public sealed class ServiceDeskTemplate : WorkspaceTemplateBase
     {
         /// <summary>
+        /// Gets the routine the service desk runs on its own: incidents at risk of missing a
+        /// target are escalated and their assignee is told, a missed target is recorded on the
+        /// incident, and a new service request is acknowledged to whoever asked.
+        /// </summary>
+        public override IEnumerable<WorkspaceTemplateAutomation> Automations =>
+        [
+            Automation
+            (
+                "Escalate incidents at risk",
+                "Raises the priority of an incident whose service level target is at risk and tells its assignee.",
+                "Incident", "sla.atrisk", null,
+                "escalate",
+                "notify assignee: " + Say("A service level target of this incident is at risk.")
+            ),
+            Automation
+            (
+                "Record missed targets",
+                "Notes on an incident that one of its service level targets was missed.",
+                "Incident", "sla.breached", null,
+                "comment internal: " + Say("A service level target of this incident was missed.")
+            ),
+            Automation
+            (
+                "Acknowledge service requests",
+                "Tells whoever asked that a new service request has arrived.",
+                "ServiceRequest", "object.created", null,
+                "comment " + Say("Thank you - your request has arrived and will be handled.")
+            )
+        ];
+
+        /// <summary>
+        /// Returns the release lifecycle: planned, built, tested, approved for go-live and
+        /// deployed - or rolled back.
+        /// </summary>
+        private static WorkspaceTemplateWorkflow ReleaseWorkflow() => Workflow
+        (
+            "Release management",
+            "From the plan through build and test to the approved go-live.",
+            [
+                Status("Planned", WorkspaceTemplateStatus.ToDo, "Scoped and scheduled."),
+                Status("Build", WorkspaceTemplateStatus.InProgress, "Being assembled."),
+                Status("Test", WorkspaceTemplateStatus.InProgress, "Being tested before it goes live."),
+                Status("Go-live approval", WorkspaceTemplateStatus.Waiting, "Waiting for the release manager."),
+                Status("Deployment", WorkspaceTemplateStatus.InProgress, "Being rolled out."),
+                Status("Deployed", WorkspaceTemplateStatus.Done, "Live.", end: true),
+                Status("Rolled back", WorkspaceTemplateStatus.Done, "Taken back after a failed rollout.", end: true),
+                Status("Cancelled", WorkspaceTemplateStatus.Done, "Withdrawn before it went live.", end: true)
+            ],
+            [
+                Transition("Start build", "Planned", "Build"),
+                Transition("Hand over to test", "Build", "Test"),
+                Transition("Request go-live", "Test", "Go-live approval"),
+                Transition("Approve go-live", "Go-live approval", "Deployment"),
+                Transition("Send back", "Go-live approval", "Build"),
+                Transition("Complete deployment", "Deployment", "Deployed"),
+                Transition("Roll back", "Deployment", "Rolled back"),
+                Transition("Cancel", "Planned", "Cancelled"),
+                Transition("Cancel", "Build", "Cancelled")
+            ]
+        );
+
+        /// <summary>
         /// Gets the short name of the template, <c>servicedesk</c>, from which its key and its i18n
         /// keys are derived.
         /// </summary>
@@ -380,7 +442,39 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
                 priorities: ChangePriorities(),
                 workflow: ChangeWorkflow(),
                 calendars: [BusinessHours, AlwaysOn],
-                slas: ChangeSlas()),
+                slas: ChangeSlas(),
+                approvals:
+                [
+                    Approval
+                    (
+                        "Change authorization",
+                        "The change authority authorizes a change before it is scheduled; the one who requests it does not.",
+                        [Step("Change authority", "any {creator} within 48h")],
+                        "Authorization", "Scheduled", "Rejected"
+                    )
+                ]),
+
+            Class("Release", "release",
+                fields:
+                [
+                    Field("Version", FieldType.Text, "The version the release delivers.", required: true),
+                    Field("Release Type", FieldType.Radio, "Major: new capabilities. Minor: improvements. Patch: fixes. Emergency: an urgent fix outside the plan.", ["Major", "Minor", "Patch", "Emergency"], required: true),
+                    Field("Planned Date", FieldType.Date, "When the release is planned to go live."),
+                    Field("Rollback Plan", FieldType.Multiline, "How the release is taken back if it fails.", details: true)
+                ],
+                workflow: ReleaseWorkflow(),
+                calendars: [],
+                slas: [],
+                approvals:
+                [
+                    Approval
+                    (
+                        "Release go-live",
+                        "A release goes live only after the release manager approved it.",
+                        [Step("Release Manager", "any {creator} within 24h")],
+                        "Go-live approval", "Deployment", "Build"
+                    )
+                ]),
 
             Class("Knowledge", "knowledge", ObjectKind.Document),
             Class("Announcement", "release", ObjectKind.Blog)

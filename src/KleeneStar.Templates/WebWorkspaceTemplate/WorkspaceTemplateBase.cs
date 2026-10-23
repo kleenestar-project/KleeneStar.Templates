@@ -106,7 +106,8 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
             IReadOnlyList<WorkspaceTemplatePriority> priorities = null,
             WorkspaceTemplateWorkflow workflow = null,
             IReadOnlyList<WorkspaceTemplateCalendar> calendars = null,
-            IReadOnlyList<WorkspaceTemplateSla> slas = null
+            IReadOnlyList<WorkspaceTemplateSla> slas = null,
+            IReadOnlyList<WorkspaceTemplateApproval> approvals = null
         )
         {
             return TemplateStructure.Resolve
@@ -125,8 +126,86 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
                 priorities,
                 workflow,
                 calendars,
-                slas
+                slas,
+                approvals
             );
+        }
+
+        /// <summary>
+        /// Gets the automation rules a workspace of this template starts with; none unless the
+        /// template says otherwise.
+        /// </summary>
+        public virtual IEnumerable<WorkspaceTemplateAutomation> Automations => [];
+
+        /// <summary>
+        /// Declares an approval policy of a class. The texts are English and shipped as keys;
+        /// the states are named as the class's workflow names them.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="description">What it is for.</param>
+        /// <param name="steps">The steps, built with <see cref="Step"/>.</param>
+        /// <param name="request">The state that requests it.</param>
+        /// <param name="approved">The state an approved object moves to.</param>
+        /// <param name="rejected">The state a rejected object moves to.</param>
+        /// <returns>The policy.</returns>
+        protected static WorkspaceTemplateApproval Approval(string name, string description, IEnumerable<string> steps, string request, string approved, string rejected)
+        {
+            return new WorkspaceTemplateApproval
+            {
+                Name = name,
+                Description = description,
+                Steps = string.Join("\n", steps),
+                RequestState = request,
+                ApprovedState = approved,
+                RejectedState = rejected
+            };
+        }
+
+        /// <summary>
+        /// Writes a step of an approval: its name, translated when the workspace is created, and
+        /// the rule of the policy syntax (<c>any {creator} within 48h</c>).
+        /// </summary>
+        /// <param name="name">The English name of the step.</param>
+        /// <param name="rule">Who decides, how many, by when.</param>
+        /// <returns>The step line.</returns>
+        protected static string Step(string name, string rule)
+        {
+            return Say(name) + ": " + rule;
+        }
+
+        /// <summary>
+        /// Declares an automation rule. The name and description are English and shipped as
+        /// keys; texts inside the actions are written with <see cref="Say"/>.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="description">What it does.</param>
+        /// <param name="class">The class it is narrowed to, or <see langword="null"/>.</param>
+        /// <param name="trigger">The trigger key.</param>
+        /// <param name="parameter">The trigger parameter, or <see langword="null"/>.</param>
+        /// <param name="actions">The action lines.</param>
+        /// <returns>The rule.</returns>
+        protected static WorkspaceTemplateAutomation Automation(string name, string description, string @class, string trigger, string parameter, params string[] actions)
+        {
+            return new WorkspaceTemplateAutomation
+            {
+                Name = TemplateText.Key(name),
+                Description = TemplateText.Key(description),
+                Class = @class,
+                Trigger = trigger,
+                Parameter = parameter,
+                Actions = string.Join("\n", actions)
+            };
+        }
+
+        /// <summary>
+        /// Embeds an English text in a step or an action line as a placeholder the core replaces
+        /// with its translation when the workspace is created.
+        /// </summary>
+        /// <param name="text">The English text.</param>
+        /// <returns>The placeholder.</returns>
+        protected static string Say(string text)
+        {
+            return "{" + TemplateText.Key(text) + "}";
         }
     }
 }

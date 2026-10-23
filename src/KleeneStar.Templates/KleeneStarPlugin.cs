@@ -45,6 +45,9 @@ namespace KleeneStar.Templates
         /// </summary>
         public void Run()
         {
+            // the integrations of the development tools join the core's catalog; what follows from
+            // their events is decided by the rules of the workspaces
+            WebIntegration.DevIntegrations.Register();
         }
 
         /// <summary>
