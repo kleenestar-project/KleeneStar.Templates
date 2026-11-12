@@ -31,7 +31,10 @@ namespace KleeneStar.Templates.Test.Internationalization
                 keys.AddRange(template.Classes.Select(x => x.Description));
 
                 // the rules a template sets up are shipped as keys too, and their texts with them
-                keys.AddRange(template.Automations.SelectMany(x => new[] { x.Name, x.Description }));
+                if (template is WorkspaceTemplateBase declared)
+                {
+                    keys.AddRange(declared.Automations.SelectMany(x => new[] { x.Name, x.Description }));
+                }
             }
 
             // the defaults of every kind are shipped too - a template gets them for whatever it
@@ -43,9 +46,6 @@ namespace KleeneStar.Templates.Test.Internationalization
 
             // the structure of the classes is shipped as keys derived from its English text;
             // declaring the classes above is what derived them
-            // the integrations name themselves in the hook dialog
-            keys.AddRange(KleeneStar.Templates.WebIntegration.DevIntegrations.All.Select(x => x.Label));
-
             keys.AddRange(TemplateText.Texts.Keys);
 
             return [.. keys.Select(TemplateResources.Unqualify).Distinct(StringComparer.Ordinal)];

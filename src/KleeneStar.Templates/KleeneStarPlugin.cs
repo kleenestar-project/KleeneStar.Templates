@@ -31,6 +31,7 @@ namespace KleeneStar.Templates
     [Application<KleeneStarApplication>()]
     [Dependency("webexpress.webapp")]
     [Dependency("kleenestar.core")]
+    [Dependency("kleenestar.automation")]
     public sealed class KleeneStarPlugin : IPlugin
     {
         /// <summary>
@@ -45,9 +46,8 @@ namespace KleeneStar.Templates
         /// </summary>
         public void Run()
         {
-            // the integrations of the development tools join the core's catalog; what follows from
-            // their events is decided by the rules of the workspaces
-            WebIntegration.DevIntegrations.Register();
+            // the template automation rules are set up when a template is applied
+            WebWorkspaceTemplate.TemplateAutomations.Connect();
         }
 
         /// <summary>

@@ -8,8 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.14" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
-    <PackageReference Include="WebExpress.WebApp" Version="2.0.0-alpha" />
+    <PackageReference Include="WebExpress.WebApp" Version="2.0.1-alpha" />
     <PackageReference Include="xunit.runner.visualstudio" Version="4.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\KleeneStar.Templates\KleeneStar.Templates.csproj" />
     <ProjectReference Include="..\..\..\KleeneStar.Core\src\KleeneStar.Core\KleeneStar.Core.csproj" />
+    <ProjectReference Include="..\..\..\KleeneStar.Automation\src\KleeneStar.Automation\KleeneStar.Automation.csproj" />
     <ProjectReference Include="..\..\..\KleeneStar.Model\src\KleeneStar.Model\KleeneStar.Model.csproj" />
   </ItemGroup>
 

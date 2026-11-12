@@ -1423,7 +1423,4 @@ text.a_pipeline_building_this_object_failed=Eine Pipeline, die dieses Objekt bau
 text.note_deployments=Deployments vermerken
 text.notes_on_an_object_that_it_was_deployed=Vermerkt an einem Objekt, dass es ausgerollt wurde.
 text.this_object_was_deployed=Dieses Objekt wurde ausgerollt.
-text.gitlab_push_merge_request_pipeline_deployment=GitLab (Push, Merge Request, Pipeline, Deployment)
-text.jenkins_build_notifications=Jenkins (Build-Benachrichtigungen)
-text.automic_job_results=Automic (Job-Ergebnisse)
 template.servicedesk.class.release=Eine geplante Menge an Änderungen, die gemeinsam live geht - und vorher freigegeben wird.

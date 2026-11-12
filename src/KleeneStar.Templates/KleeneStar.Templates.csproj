@@ -10,6 +10,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\KleeneStar.Core\src\KleeneStar.Core\KleeneStar.Core.csproj" />
+	  <!-- the templates set up automation rules through the automation plugin -->
+	  <ProjectReference Include="..\..\..\KleeneStar.Automation\src\KleeneStar.Automation\KleeneStar.Automation.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
