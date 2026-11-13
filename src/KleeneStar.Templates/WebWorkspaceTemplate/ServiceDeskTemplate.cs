@@ -109,6 +109,31 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override string SuggestedKey => "SD";
 
         /// <summary>
+        /// Gets what the home page of a workspace of this template says.
+        /// </summary>
+        public override WorkspaceTemplateHome Home => HomePage
+        (
+            "This is the IT service desk, the single point of contact for everything IT. Incidents bring services back, service requests deliver what was asked for, problems remove the causes, and changes are approved before they go live.",
+            Section
+            (
+                "How to reach us",
+                "Customers report through the customer portal; the service team works every request here.",
+                "Something is broken or slow: report an incident.",
+                "You need access, hardware or software: file a service request.",
+                "Look in the knowledge base first, many questions are answered there."
+            ),
+            Steps
+            (
+                "How the team works",
+                null,
+                "Every new ticket is categorized and prioritized within the first hour.",
+                "Incidents are worked by priority, and the service level clock shows how much time is left.",
+                "Recurring incidents are linked to a problem, whose root cause is removed with a change.",
+                "Changes pass the change advisory board before they are scheduled for a release."
+            )
+        );
+
+        /// <summary>
         /// Gets the display order: first, because a service desk is the most common reason to set a
         /// workspace up.
         /// </summary>

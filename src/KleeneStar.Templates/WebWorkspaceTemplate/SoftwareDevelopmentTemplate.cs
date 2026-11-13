@@ -42,6 +42,31 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override string SuggestedKey => "DEV";
 
         /// <summary>
+        /// Gets what the home page of a workspace of this template says.
+        /// </summary>
+        public override WorkspaceTemplateHome Home => HomePage
+        (
+            "This is where the software is built. Tasks and bugs are planned in sprints, the code lives in the linked repositories, and the build pipelines report back here.",
+            Steps
+            (
+                "How we work",
+                null,
+                "Plan: new work is written as a task, a defect as a bug, and both land in the backlog.",
+                "Commit: the sprint takes what the team can finish in two weeks.",
+                "Build: every merge runs the build pipeline, and a red build is fixed before new work starts.",
+                "Release: what is done goes out with the next release and is announced in the release notes."
+            ),
+            Section
+            (
+                "Rules of thumb",
+                null,
+                "A bug report says what was expected, what happened and how to reproduce it.",
+                "Documentation is kept next to the work it describes, in the page tree of this workspace.",
+                "Specifications are captured through their own form, so they all answer the same questions."
+            )
+        );
+
+        /// <summary>
         /// Gets the display order: second, after the service desk.
         /// </summary>
         public override int Order => 20;

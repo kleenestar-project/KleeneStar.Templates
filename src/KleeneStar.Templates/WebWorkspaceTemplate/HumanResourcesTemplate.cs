@@ -35,6 +35,28 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override string SuggestedKey => "HR";
 
         /// <summary>
+        /// Gets what the home page of a workspace of this template says.
+        /// </summary>
+        public override WorkspaceTemplateHome Home => HomePage
+        (
+            "Human Resources looks after the people of the organization, from the open position to the onboarding, from absences to training.",
+            Section
+            (
+                "What happens here",
+                null,
+                "Open positions are created here and followed until they are filled.",
+                "Every new colleague gets an onboarding, with tasks for HR, IT and the team.",
+                "Absences are requested and approved here.",
+                "Training is planned and recorded per employee."
+            ),
+            Section
+            (
+                "Please note",
+                "Personnel data is confidential. Classify a record that contains personal information, so only those who need it for their work can see it."
+            )
+        );
+
+        /// <summary>
         /// Gets the display order: after finance, among the business templates.
         /// </summary>
         public override int Order => 50;

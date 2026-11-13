@@ -1,6 +1,7 @@
 ﻿using KleeneStar.Core.WebWorkspaceTemplate;
 using KleeneStar.Model.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using WebExpress.WebCore.WebIcon;
 using WebExpress.WebUI.WebIcon;
 
@@ -129,6 +130,65 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
                 slas,
                 approvals
             );
+        }
+
+        /// <summary>
+        /// Gets what the home page of a workspace of this template says; the generic page unless
+        /// the template says otherwise.
+        /// </summary>
+        public virtual WorkspaceTemplateHome Home => null;
+
+        /// <summary>
+        /// Declares the home page of the template. The texts are English and shipped as keys,
+        /// like every other text of a template; they are translated once, when the workspace is
+        /// created.
+        /// </summary>
+        /// <param name="lead">What the workspace is for.</param>
+        /// <param name="sections">The sections below it, built with <see cref="Section"/> and
+        /// <see cref="Steps"/>.</param>
+        /// <returns>The home page.</returns>
+        protected static WorkspaceTemplateHome HomePage(string lead, params WorkspaceTemplateHomeSection[] sections)
+        {
+            return new WorkspaceTemplateHome
+            {
+                Lead = TemplateText.Key(lead),
+                Sections = sections ?? []
+            };
+        }
+
+        /// <summary>
+        /// Declares a section of the home page with a list of points.
+        /// </summary>
+        /// <param name="heading">The heading.</param>
+        /// <param name="text">The paragraph under the heading, or <see langword="null"/>.</param>
+        /// <param name="items">The points.</param>
+        /// <returns>The section.</returns>
+        protected static WorkspaceTemplateHomeSection Section(string heading, string text, params string[] items)
+        {
+            return new WorkspaceTemplateHomeSection
+            {
+                Heading = TemplateText.Key(heading),
+                Text = TemplateText.Key(text),
+                Items = [.. (items ?? []).Select(TemplateText.Key)]
+            };
+        }
+
+        /// <summary>
+        /// Declares a section of the home page with a sequence of numbered steps.
+        /// </summary>
+        /// <param name="heading">The heading.</param>
+        /// <param name="text">The paragraph under the heading, or <see langword="null"/>.</param>
+        /// <param name="steps">The steps, in order.</param>
+        /// <returns>The section.</returns>
+        protected static WorkspaceTemplateHomeSection Steps(string heading, string text, params string[] steps)
+        {
+            return new WorkspaceTemplateHomeSection
+            {
+                Heading = TemplateText.Key(heading),
+                Text = TemplateText.Key(text),
+                Items = [.. (steps ?? []).Select(TemplateText.Key)],
+                Numbered = true
+            };
         }
 
         /// <summary>

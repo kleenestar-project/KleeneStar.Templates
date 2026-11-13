@@ -198,5 +198,31 @@ namespace KleeneStar.Templates.Test.WebWorkspaceTemplate
                 Assert.Matches(IconPath, icon.Uri.ToString());
             }
         }
+    
+
+        /// <summary>
+        /// Every shipped template says what the home page of its workspaces says: what the
+        /// workspace is for and at least one section on working in it, every text a key of this
+        /// plugin. A template without one would give its workspaces the generic page.
+        /// </summary>
+        [Fact]
+        public void EveryTemplateDeclaresItsHomePage()
+        {
+            foreach (var template in TemplateCatalog.Templates)
+            {
+                var home = template.Home;
+
+                Assert.NotNull(home);
+                Assert.True(TemplateText.IsKey(home.Lead), $"'{template.Key}' has no lead on its home page.");
+                Assert.NotEmpty(home.Sections);
+
+                foreach (var section in home.Sections)
+                {
+                    Assert.True(TemplateText.IsKey(section.Heading), $"A section of '{template.Key}' has no heading.");
+                    Assert.True(!string.IsNullOrWhiteSpace(section.Text) || section.Items.Count > 0, $"A section of '{template.Key}' says nothing.");
+                    Assert.All(section.Texts(), x => Assert.True(TemplateText.IsKey(x), $"'{x}' is not shipped as a key."));
+                }
+            }
+        }
     }
 }

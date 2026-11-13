@@ -40,6 +40,30 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override string SuggestedKey => "CMDB";
 
         /// <summary>
+        /// Gets what the home page of a workspace of this template says.
+        /// </summary>
+        public override WorkspaceTemplateHome Home => HomePage
+        (
+            "The configuration management database keeps the configuration items of the IT landscape and how they depend on each other, so the impact of a change or an outage is known before it happens.",
+            Section
+            (
+                "What belongs here",
+                null,
+                "Every configuration item that is managed: servers, applications, network components and licences.",
+                "The relationships between them, so dependencies can be followed in both directions.",
+                "The policies and compliance rules the landscape is held to, and the vulnerabilities found in it."
+            ),
+            Steps
+            (
+                "Keeping it accurate",
+                null,
+                "Change a configuration item only through an approved change request.",
+                "Record a new item when it goes into operation, and retire it when it is switched off.",
+                "Review the items you own regularly, an outdated record is worse than none."
+            )
+        );
+
+        /// <summary>
         /// Gets the display order: third, after the service desk and software development, which
         /// it is the inventory for.
         /// </summary>

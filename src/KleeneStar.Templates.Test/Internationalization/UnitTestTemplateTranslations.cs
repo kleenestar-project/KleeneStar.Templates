@@ -34,6 +34,13 @@ namespace KleeneStar.Templates.Test.Internationalization
                 if (template is WorkspaceTemplateBase declared)
                 {
                     keys.AddRange(declared.Automations.SelectMany(x => new[] { x.Name, x.Description }));
+
+                    // and so is what its home page says
+                    if (declared.Home is { } home)
+                    {
+                        keys.Add(home.Lead);
+                        keys.AddRange(home.Sections.SelectMany(x => x.Texts()));
+                    }
                 }
             }
 

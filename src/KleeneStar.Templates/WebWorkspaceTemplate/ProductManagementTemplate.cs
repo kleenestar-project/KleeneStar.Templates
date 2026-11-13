@@ -36,6 +36,28 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override string SuggestedKey => "PM";
 
         /// <summary>
+        /// Gets what the home page of a workspace of this template says.
+        /// </summary>
+        public override WorkspaceTemplateHome Home => HomePage
+        (
+            "Product management decides what gets built and why. Features and requirements are collected and prioritized here, and the roadmap shows when they are planned to ship.",
+            Steps
+            (
+                "From idea to release",
+                null,
+                "Capture an idea as a feature and describe the problem it solves.",
+                "Break it down into requirements and the use cases they serve.",
+                "Prioritize it with the stakeholders and place it on the roadmap.",
+                "Plan the release, and hand it over to development."
+            ),
+            Section
+            (
+                "Stakeholders",
+                "Every stakeholder is recorded with their interests, so it is clear whom a decision affects and who has to be heard."
+            )
+        );
+
+        /// <summary>
         /// Gets the display order: after human resources, before procurement.
         /// </summary>
         public override int Order => 60;

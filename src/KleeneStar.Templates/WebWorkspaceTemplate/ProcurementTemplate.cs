@@ -35,6 +35,28 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override string SuggestedKey => "PROC";
 
         /// <summary>
+        /// Gets what the home page of a workspace of this template says.
+        /// </summary>
+        public override WorkspaceTemplateHome Home => HomePage
+        (
+            "Procurement buys what the organization needs, from the tender to the order and from the delivery to the invoice, together with the suppliers who deliver it.",
+            Steps
+            (
+                "How purchasing works",
+                null,
+                "Larger purchases start with a tender, in which suppliers submit their offers.",
+                "The chosen offer becomes a purchase order, which is approved before it is placed.",
+                "Goods received are recorded as a delivery, with what arrived and in what state.",
+                "The invoice is matched against the order and the delivery before it is paid."
+            ),
+            Section
+            (
+                "Suppliers",
+                "Every supplier is kept with its contacts, agreed terms and contracts. Rate a supplier after each delivery, so the next decision can build on it."
+            )
+        );
+
+        /// <summary>
         /// Gets the display order: last of the shipped templates.
         /// </summary>
         public override int Order => 70;

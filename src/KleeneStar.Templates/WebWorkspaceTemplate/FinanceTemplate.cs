@@ -35,6 +35,28 @@ namespace KleeneStar.Templates.WebWorkspaceTemplate
         public override string SuggestedKey => "FIN";
 
         /// <summary>
+        /// Gets what the home page of a workspace of this template says.
+        /// </summary>
+        public override WorkspaceTemplateHome Home => HomePage
+        (
+            "Finance and Controlling plans and steers the money. Budgets are set and tracked per cost center, invoices are checked and approved, and forecasts show early where the year is heading.",
+            Section
+            (
+                "What happens here",
+                null,
+                "Budgets are planned per cost center and fiscal year and compared with the actual spending.",
+                "Incoming invoices are checked against their order and approved before they are paid.",
+                "Contracts are kept with their terms and renewal dates.",
+                "Forecasts are updated every month."
+            ),
+            Section
+            (
+                "Approvals",
+                "Spending is approved by the person responsible for the cost center; larger amounts need a second approval from controlling."
+            )
+        );
+
+        /// <summary>
         /// Gets the display order: after the technical templates, first of the business ones.
         /// </summary>
         public override int Order => 40;
