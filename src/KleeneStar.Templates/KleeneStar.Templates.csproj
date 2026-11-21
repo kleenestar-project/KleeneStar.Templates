@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net11.0</TargetFramework>
-		<Version>0.0.3-alpha</Version>
+		<Version>0.0.4-alpha</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/kleenestar-project/KleeneStar.Templates</RepositoryUrl>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
