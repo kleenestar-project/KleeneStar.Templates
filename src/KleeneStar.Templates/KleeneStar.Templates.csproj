@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
-		<Version>0.0.3-alpha</Version>
+		<TargetFramework>net11.0</TargetFramework>
+		<Version>0.0.4-alpha</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/kleenestar-project/KleeneStar.Templates</RepositoryUrl>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
